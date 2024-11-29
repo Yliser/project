@@ -3,4 +3,6 @@ import psutil
 def get_cpu_usage(interval_in_seconds: int) -> float:
     return psutil.cpu_percent(interval=interval_in_seconds)
 
-print(get_cpu_usage(1))
+x = 'true'
+while(x == 'true'):
+    print(get_cpu_usage(1))
