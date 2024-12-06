@@ -1,0 +1,65 @@
+import sys
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout, QPushButton
+from PyQt6.QtGui import QPixmap, QIcon, QCursor
+
+ROWS = 3
+COLS = 4
+
+
+class ImageButtonWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        # Initialize the window
+        self.setWindowTitle('Enter name')
+        self.setGeometry(100, 100, 600, 400)
+
+        # Create a grid layout
+        layout = QGridLayout()
+
+        for row in range(ROWS):
+            for col in range(COLS):
+                click_specific_button_func = lambda : self.on_button_click(row,col)
+                # Add image buttons to the layout
+                self.add_image_button(layout, row, col, 'computer.png', click_specific_button_func)
+
+        # Set the layout on the QWidget
+        self.setLayout(layout)
+
+    def add_image_button(self, layout, row, col, image_path, callback):
+        # Create a QPushButton with an image
+        button = QPushButton(self)
+        pixmap = QPixmap(image_path)
+
+        # Resize the image to fit the button
+        pixmap = pixmap.scaled(150, 150, Qt.AspectRatioMode.KeepAspectRatio)
+
+        # Set the button icon as the image
+        button.setIcon(QIcon(pixmap))
+        button.setIconSize(pixmap.size())
+
+        # Set the button style to remove borders and make it look like an image
+        button.setStyleSheet("border: none;")
+        button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+
+        # Connect the button's clicked signal to the callback function
+        button.clicked.connect(callback)
+
+        # Add the button to the layout
+        layout.addWidget(button, row, col)
+
+    def on_button_click(self, row, col):
+        # Action to perform when any button is clicked
+        print(f"Click on {row=} {col=}")
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+
+    # Create and show the window
+    window = ImageButtonWindow()
+    window.show()
+
+    # Run the application
+    sys.exit(app.exec())
