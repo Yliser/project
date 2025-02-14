@@ -1,13 +1,24 @@
 import time
-import socket
+from socket import socket
 from zlib import decompress
-
 import pygame
+import psutil
+import threading
 
 WIDTH = 1900
 HEIGHT = 1000
 
 
+###################################
+def get_cpu_usage(interval_in_seconds: int) -> float:
+    return psutil.cpu_percent(interval=interval_in_seconds)
+
+def start_cpu:
+    x = 'true'
+    while x == 'true':
+      print(get_cpu_usage(1))
+
+t1 = threading.Thread(target=start_cpu(), name='t1')
 def recvall(conn, length):
     """ Retreive all pixels. """
 
@@ -20,13 +31,13 @@ def recvall(conn, length):
     return buf
 
 
-def main(host="127.0.0.1", port=555):
+def main(host='127.0.0.1', port=5000):
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     clock = pygame.time.Clock()
     watching = True
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock = socket()
     sock.connect((host, port))
     try:
         while watching:

@@ -4,7 +4,6 @@ from zlib import compress
 
 from mss import mss
 
-
 WIDTH = 1900
 HEIGHT = 1000
 
@@ -33,7 +32,7 @@ def retreive_screenshot(conn):
             conn.sendall(pixels)
 
 
-def main(host='127.0.0.1', port=555):
+def main(host='0.0.0.0', port=5000):
     sock = socket()
     sock.bind((host, port))
     try:
@@ -51,4 +50,3 @@ def main(host='127.0.0.1', port=555):
 
 if __name__ == '__main__':
     main()
-client.py
